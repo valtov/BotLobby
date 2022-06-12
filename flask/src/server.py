@@ -40,10 +40,6 @@ def get_user():
     'lobby': round(parser.get_average_kd_lobbies(query['apiGG']), 2)
   }
   return user
-  # kds = []
-  # for match in stats['matches']:
-  #   kds.append(match['matchStatData']['playerAverage'])
-  # averageKdLobbies = sum(kds)/len(kds)
 
 @app.template_filter()
 def streamer_lifetime_filter(streamer):
@@ -83,12 +79,9 @@ def login():
   sso = request.form['sso']
   platform = request.form['platform']
   print(username, sso, platform)
-
-  # api = Api(username, platforms[platform], sso)
-  # apiGG = ApiGG()
   
   if not loginHandler(username, platform, sso):
-    return redirect(url_for('home', error=f'Something went wrong. Most likely one of sso, username or platform were incorrect. Also possible that something went wrong with the Api. Trying again may or may not solve this issue.'))
+    return redirect(url_for('home', error='Something went wrong. Most likely one of sso, username or platform were incorrect. Also possible that something went wrong with the Api. Trying again may or may not solve this issue.'))
 
   session['username'] = username
   session['sso'] = sso
@@ -106,7 +99,6 @@ def loginHandler(username, platform, sso):
     if datetime.datetime.utcnow() - doc['last_modified'] > datetime.timedelta(hours=2):
       return updateUser(username, platform, sso)
   return True
-  # if collection.find({'username': username}).count() > 0
 
 def updateUser(username, platform, sso):
   platforms = {

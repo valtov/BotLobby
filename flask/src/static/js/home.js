@@ -9,16 +9,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
         storeForm()
     });
 
-    // var arr = dropdown.getElementsByTagName("li");
-    // console.log(arr)
-    // for (var i = 0; i < arr.length; i++) {
-    //     console.log(arr[i].children[0].text)
-    //     arr[i].children[0].addEventListener("click", function() {
-    //         console.log(this);
-    //         var button = document.getElementById("dropdown-button");
-    //         button.innerText = this.text
-    //     });
-    // }
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var error = url.searchParams.get("error");
+    if (error) {
+        alert(error)
+    }
 });
 
 function storeForm() {
